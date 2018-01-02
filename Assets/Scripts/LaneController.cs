@@ -7,13 +7,13 @@ public class LaneController : MonoBehaviour {
     private Material mat;
     private Color laneColor;
     private Color pressedColor;
-    public string key;
+    public KeyCode key;
 
     // Use this for initialization
     void Start () {
         mat = GetComponent<Renderer>().material;
         laneColor = mat.color;
-        pressedColor = new Color(0.3f, 0.3f, 0.3f, 1f);
+        pressedColor = new Color(0.3f, 0.3f, 0.4f, 0.5f);
     }
 
     // Update is called once per frame
