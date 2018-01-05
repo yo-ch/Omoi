@@ -31,7 +31,7 @@ public class LaneController : MonoBehaviour {
         {
             if (notes.Count > 0)
                 Debug.Log((audioSource.time) + "@" + notes.Peek().GetComponent<Note>().hitTime);
-            if (notes.Count > 0 && Math.Abs(audioSource.time - notes.Peek().GetComponent<Note>().hitTime) < 0.4f)
+            if (notes.Count > 0 && Math.Abs(audioSource.time - notes.Peek().GetComponent<Note>().hitTime) < 0.225f)
             {
                 GameObject note = notes.Dequeue();
                 Debug.Log("destroy");

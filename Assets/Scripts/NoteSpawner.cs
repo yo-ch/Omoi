@@ -41,7 +41,7 @@ public class NoteSpawner : MonoBehaviour {
         lanes = new LaneController[4];
         for (int i = 0; i < 4; i++)
         {
-            lanes[i] = GameObject.Find("Lane " + (i + 1).ToString()).GetComponent<LaneController>();
+            lanes[i] = GameObject.Find("Lane " + (i + 1)).GetComponent<LaneController>();
         }
     }
 
@@ -297,7 +297,7 @@ public class NoteSpawner : MonoBehaviour {
                 Note noteScript = obj.GetComponent<Note>();
                 noteScript.speed = arrowSpeed;
                 noteScript.hitTime = ((barCount * 4.0f) + (((i + 1.0f) / bar.Count) * 4.0f)) / songData.bpm * 60;
-  
+
                 lanes[2].AddNote(obj);
             }
             if (bar[i].right)

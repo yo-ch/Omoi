@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 23485664375074528}
   - component: {fileID: 54147505465855320}
   - component: {fileID: 114788850583964856}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Note
   m_TagString: Note
   m_Icon: {fileID: 0}
@@ -58,7 +58,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 9bbce1bd174f2334f862683233ca105f, type: 2}
+  - {fileID: 2100000, guid: 2667a5c9f5131584fbf0c0eed1a345d8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -108,7 +108,7 @@ BoxCollider:
   m_GameObject: {fileID: 1349123403026660}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
