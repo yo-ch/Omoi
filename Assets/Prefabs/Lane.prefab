@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33276594670118628}
   - component: {fileID: 64785593692803956}
   - component: {fileID: 23750793135537300}
-  - component: {fileID: 114989369147814712}
+  - component: {fileID: 114594202356231256}
   m_Layer: 0
   m_Name: Lane
   m_TagString: Untagged
@@ -98,7 +98,7 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &114989369147814712
+--- !u!114 &114594202356231256
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -110,3 +110,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   key: 0
+  hitSprite: {fileID: 1210971381499946, guid: 2a5d9402b3568494e815a4399b364346, type: 2}

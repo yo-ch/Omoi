@@ -5,6 +5,7 @@ using UnityEngine;
 public class Note : MonoBehaviour {
 
 		public float speed;
+		public float hitTime;
 
     private Rigidbody rb;
 
@@ -15,9 +16,4 @@ public class Note : MonoBehaviour {
 		void Start() {
 				rb.velocity = new Vector3(0, 0, -speed);
 		}
-
-    // Update is called once per frame
-    void Update() {
-
-    }
 }
