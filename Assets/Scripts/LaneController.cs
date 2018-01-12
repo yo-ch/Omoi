@@ -35,7 +35,11 @@ public class LaneController : MonoBehaviour {
             {
                 List<float> hitDifferences = new List<float>(notes.Select(n => Math.Abs(n.GetComponent<Note>().hitTime - audioSource.time)));
 
-                if (hitDifferences.Min() <= 0.225) {
+                int xd = hitDifferences.IndexOf(hitDifferences.Min());
+                GameObject xdnote = (GameObject) notes[xd];
+                Debug.Log((audioSource.time) + "@" + xdnote.GetComponent<Note>().hitTime);
+
+                if (hitDifferences.Min() <= 0.25) {
                     int closestNote = hitDifferences.IndexOf(hitDifferences.Min());
 
                     GameObject note = (GameObject) notes[closestNote];
@@ -60,12 +64,12 @@ public class LaneController : MonoBehaviour {
         }
 
         foreach (var note in notes.Where(note =>
-                                         note.GetComponent<Note>().hitTime - audioSource.time < -0.225))
+                                         note.GetComponent<Note>().hitTime - audioSource.time < -0.25))
         {
             Destroy((GameObject) note);
             comboText.text = "0";
         }
-        notes.RemoveAll(note => note.GetComponent<Note>().hitTime - audioSource.time < -0.225);
+        notes.RemoveAll(note => note.GetComponent<Note>().hitTime - audioSource.time < -0.25);
 
     }
 
