@@ -21,7 +21,7 @@ public class NoteSpawner : MonoBehaviour {
     private float barExecutedTime = 0;
     private float arrowSpeed;
     private int barCount;
-    private float distance = 188;
+    private float distance = 193;
     private float songTimer = 0;
     private AudioSource audioSource;
 
@@ -35,6 +35,7 @@ public class NoteSpawner : MonoBehaviour {
         barTime = 60.0f / songData.bpm * 4.0f;
         arrowSpeed = speed;
         audioSource = GameObject.Find("Song").GetComponent<AudioSource>();
+        audioSource.Play();
         noteData = songData.chart;
         isInit = true;
 
@@ -52,7 +53,7 @@ public class NoteSpawner : MonoBehaviour {
             float timeOffset = distance / arrowSpeed;
             songTimer = audioSource.time;
 
-            if (songTimer - timeOffset - songData.offset + offset >= (barExecutedTime - barTime))
+            if (songTimer - timeOffset - songData.offset >= (barExecutedTime - barTime))
             {
                 StartCoroutine(PlaceBar(noteData.bars[barCount], barCount++));
                 barExecutedTime += barTime;

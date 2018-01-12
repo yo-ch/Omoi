@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 using UnityEngine;
 
 public class LaneController : MonoBehaviour {
@@ -11,7 +12,7 @@ public class LaneController : MonoBehaviour {
     public KeyCode key;
     public GameObject hitSprite;
 
-    private Queue<GameObject> notes;
+    private List<GameObject> notes;
     private AudioSource audioSource;
 
     // Use this for initialization
@@ -19,23 +20,28 @@ public class LaneController : MonoBehaviour {
         mat = GetComponent<Renderer>().material;
         laneColor = mat.color;
         pressedColor = new Color(0.3f, 0.3f, 0.4f, 0.5f);
-        notes = new Queue<GameObject>();
+        notes = new List<GameObject>();
         audioSource = GameObject.Find("Song").GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
     void OnGUI () {
         Event e = Event.current;
 
         if (e.isKey && e.keyCode == key && Input.GetKeyDown(key))
         {
             if (notes.Count > 0)
-                Debug.Log((audioSource.time) + "@" + notes.Peek().GetComponent<Note>().hitTime);
-            if (notes.Count > 0 && Math.Abs(audioSource.time - notes.Peek().GetComponent<Note>().hitTime) < 0.225f)
             {
-                GameObject note = notes.Dequeue();
-                Debug.Log("destroy");
-                Destroy(note);
+                List<float> hitDifferences = new List<float>(notes.Select(n => Math.Abs(n.GetComponent<Note>().hitTime - audioSource.time)));
+
+                if (hitDifferences.Min() <= 0.225) {
+                    int closestNote = hitDifferences.IndexOf(hitDifferences.Min());
+
+                    GameObject note = (GameObject) notes[closestNote];
+                    Debug.Log((audioSource.time) + "@" + note.GetComponent<Note>().hitTime);
+                    notes.RemoveAt(closestNote);
+
+                    Destroy(note);
+                }
             }
         }
     }
@@ -51,25 +57,15 @@ public class LaneController : MonoBehaviour {
             mat.color = laneColor;
         }
 
-
-        while (notes.Count > 0)
-        {
-            GameObject note = notes.Peek();
-            if (note.transform.position.z < 23)
-            {
-                Debug.Log("too late");
-                Destroy(notes.Dequeue());
-            }
-            else
-            {
-                break;
-            }
+        foreach (var note in notes.Where(note =>
+                                         note.GetComponent<Note>().hitTime - audioSource.time < -0.225)) {
+            Destroy((GameObject) note);
         }
-
+        notes.RemoveAll(note => note.GetComponent<Note>().hitTime - audioSource.time < -0.225);
     }
 
     public void AddNote (GameObject note)
     {
-        notes.Enqueue(note);
+        notes.Add(note);
     }
 }
