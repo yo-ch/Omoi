@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LaneController : MonoBehaviour {
 
@@ -10,7 +11,7 @@ public class LaneController : MonoBehaviour {
     private Color laneColor;
     private Color pressedColor;
     public KeyCode key;
-    public GameObject hitSprite;
+    public Text comboText;
 
     private List<GameObject> notes;
     private AudioSource audioSource;
@@ -21,6 +22,7 @@ public class LaneController : MonoBehaviour {
         laneColor = mat.color;
         pressedColor = new Color(0.3f, 0.3f, 0.4f, 0.5f);
         notes = new List<GameObject>();
+        comboText.text = "0";
         audioSource = GameObject.Find("Song").GetComponent<AudioSource>();
     }
 
@@ -39,7 +41,7 @@ public class LaneController : MonoBehaviour {
                     GameObject note = (GameObject) notes[closestNote];
                     Debug.Log((audioSource.time) + "@" + note.GetComponent<Note>().hitTime);
                     notes.RemoveAt(closestNote);
-
+                    comboText.text = (Int32.Parse(comboText.text)+1).ToString();
                     Destroy(note);
                 }
             }
@@ -58,10 +60,13 @@ public class LaneController : MonoBehaviour {
         }
 
         foreach (var note in notes.Where(note =>
-                                         note.GetComponent<Note>().hitTime - audioSource.time < -0.225)) {
+                                         note.GetComponent<Note>().hitTime - audioSource.time < -0.225))
+        {
             Destroy((GameObject) note);
+            comboText.text = "0";
         }
         notes.RemoveAll(note => note.GetComponent<Note>().hitTime - audioSource.time < -0.225);
+
     }
 
     public void AddNote (GameObject note)
